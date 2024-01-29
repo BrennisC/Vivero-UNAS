@@ -1,0 +1,17 @@
+Planta 1:
+Nombre: cedro
+Cantidad: 1
+Precios: 
+2.5
+El pago total es : 2.5
+-----------------------------
+
+Planta 2:
+Nombre: Euclipto
+Cantidad: 2
+Precios: 
+2.5
+El pago total es : 52.3
+El pago total es : 4.6
+-----------------------------
+
