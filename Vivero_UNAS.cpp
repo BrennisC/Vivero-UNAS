@@ -2,6 +2,7 @@
 #include <vector>
 #include <conio.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include <string>
 #include <ctime>
 #include <fstream>
@@ -9,12 +10,13 @@
 #define CYAN "\033[36m"
 using namespace std;
 const string CONTRASENA_CORRECTA = "vivero_unas2024"; // para poder accerder
+
 bool verificarContrasena()
 {
     string contrasenaIngresada;
     while (CONTRASENA_CORRECTA != contrasenaIngresada)
     {
-        cout << "Ingrese la contraseña: ";
+        printf("ingrese la contrase%ca: \n", 164);
         getline(cin, contrasenaIngresada);
         system("cls");
     }
@@ -42,11 +44,11 @@ void Registro(vector<Plantas> &registro) // registro de las plantas de vivero
     cout << "|______________________|\n\n";
 
     int tamanio;
-    cout << "Ingrese la cantidad de plantas: ";
+    cout << "Ingrese la cantidad de tipos de plantas del vivero: ";
     cin >> tamanio;
     cin.ignore();
 
-    registro.resize(tamanio);
+    registro.resize(tamanio); // llamas de nuevo al registro y te dice el tamaño edl vector struct
 
     for (int i = 0; i < tamanio; i++)
     {
@@ -54,14 +56,12 @@ void Registro(vector<Plantas> &registro) // registro de las plantas de vivero
         cout << "Ingrese el nombre de la planta " << i + 1 << ": " << endl;
         getline(cin, registro[i].nombre_plantas);
 
-        cout << "Ingrese la cantidad de plantas " << i + 1 << ": " << endl;
+        cout << "Ingrese la cantidad de " << registro[i].nombre_plantas << " : " << endl;
         cin >> registro[i].cantidad_plantas;
-        for (int j = 0; j < registro[i].cantidad_plantas; j++)
-        {
-            cout << "Ingrese el precio de la planta " << j + 1 << ": " << endl;
-            cin >> pago;
-            registro[i].precios.push_back(pago);
-        }
+
+        cout << "Ingrese el precio por unidad de las " << registro[i].nombre_plantas << " : " << endl;
+        cin >> pago;
+        registro[i].precios.push_back(pago);
 
         cin.ignore();
 
@@ -117,12 +117,13 @@ void RegistroAbonoUnas(vector<Abono> &abonos) // para registrar la cantidad de a
 }
 void GuardarAbono(const vector<Abono> &abonos) // guardar el abono que ya has registrado
 {
-    ofstream archivo("abono.txt");
+    ofstream archivo("abono.txt"); //
 
     if (archivo.is_open())
     {
         for (size_t i = 0; i < abonos.size(); i++)
         {
+            archivo << "----BOLETA----";
             archivo << "Planta " << i + 1 << ":\n";
             archivo << "Nombre: " << abonos[i].nombre_abono << endl;
             archivo << "Fecha: " << abonos[i].fecha_registro << endl;
@@ -147,6 +148,7 @@ void salirdelSistema(const vector<Plantas> &registro) // salir de sistema y a la
     {
         for (size_t i = 0; i < registro.size(); i++)
         {
+            archivo << "--BOLETA--";
             archivo << "Planta " << i + 1 << ":\n";
             archivo << "Nombre: " << registro[i].nombre_plantas << endl;
             archivo << "Cantidad: " << registro[i].cantidad_plantas << endl;

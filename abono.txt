@@ -1,4 +1,0 @@
-Planta 1:
-Nombre: Cafe de cacao
-Fecha: 01/20/2024
-Precios:56.4
