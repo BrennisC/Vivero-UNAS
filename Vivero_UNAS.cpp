@@ -34,7 +34,7 @@ struct Abono // estructura para ver el abono  realizado por un cliente a una pla
 {
     string nombre_abono;
     float precio_adono;
-    string fecha_registro;
+    char fecha_registro;
 };
 void Registro(vector<Plantas> &registro) // registro de las plantas de vivero
 {
@@ -98,7 +98,7 @@ void RegistroAbonoUnas(vector<Abono> &abonos) // para registrar la cantidad de a
     cout << "|  REGISTRO DE ABONO |" << endl;
     cout << "|____________________|\n\n";
     int cantidad;
-    cout << "Ingrese la cantidad de abono que vas a sacar: ";
+    cout << "Ingrese los abonos comprados: ";
     cin >> cantidad;
 
     abonos.resize(cantidad);
@@ -108,7 +108,7 @@ void RegistroAbonoUnas(vector<Abono> &abonos) // para registrar la cantidad de a
         cout << "Ingrese el nombre del abono " << i + 1 << " : ";
         getline(cin, abonos[i].nombre_abono);
         cout << "Ingrese la fecha del registro " << i + 1 << " : ";
-        getline(cin, abonos[i].fecha_registro);
+        cin.get(abonos[i].fecha_registro);
         cout << "Ingrese el monto del abono " << i + 1 << " : ";
         cin >> abonos[i].precio_adono;
         cout << "\n\nIngrese del abono " << i + 1 << "completado \n\n";
@@ -189,7 +189,7 @@ void Menu()
 
     if (!verificarContrasena())
     {
-        cout << "Contraseña incorrecta. Saliendo del sistema.\n";
+        cout << "Contraseña incorrecta vuelve intentar.";
         return;
     }
 

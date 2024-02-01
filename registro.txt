@@ -1,17 +1,16 @@
-Planta 1:
-Nombre: cedro
-Cantidad: 1
-Precios: 
-2.5
-El pago total es : 2.5
------------------------------
-
-Planta 2:
-Nombre: Euclipto
+--BOLETA--Planta 1:
+Nombre: Cedro
 Cantidad: 2
 Precios: 
-2.5
-El pago total es : 52.3
-El pago total es : 4.6
+2.6
+El pago total es : 5.2
+-----------------------------
+
+--BOLETA--Planta 2:
+Nombre: Margarita
+Cantidad: 2
+Precios: 
+2.6
+El pago total es : 5.2
 -----------------------------
 
