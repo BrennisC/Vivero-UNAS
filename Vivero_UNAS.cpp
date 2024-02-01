@@ -201,11 +201,10 @@ void Menu()
 
     do
     {
-        cout << "[1] SISTEMA DE REGISTRO: \n";
+        cout << "[1] REGISTRAR PLANTAS: \n";
         cout << "[2] MOSTRAR EL REGISTRO: \n";
-        cout << "[3] REGISTRO EL ABONO:\n";
-        cout << "[4] GUARDAR EL ABONO:\n";
-        cout << "[5] SALIR DEL SISTEMA: \n\n";
+        cout << "[3] REGISTRAR ABONOS:\n";
+        cout << "[4] SALIR DEL SISTEMA: \n\n";
 
         cout << "Ingrese su opcion: ";
         cin >> opc;
