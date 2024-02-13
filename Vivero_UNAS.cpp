@@ -2,7 +2,6 @@
 #include <vector>
 #include <conio.h>
 #include <stdlib.h>
-#include <stdio.h>
 #include <string>
 #include <ctime>
 #include <fstream>
@@ -10,13 +9,12 @@
 #define CYAN "\033[36m"
 using namespace std;
 const string CONTRASENA_CORRECTA = "vivero_unas2024"; // para poder accerder
-
 bool verificarContrasena()
 {
     string contrasenaIngresada;
     while (CONTRASENA_CORRECTA != contrasenaIngresada)
     {
-        printf("ingrese la contrase%ca: \n", 164);
+        cout << "Ingrese su contraseña: ";
         getline(cin, contrasenaIngresada);
         system("cls");
     }
@@ -240,6 +238,7 @@ void Menu()
 
 int main()
 {
+    setlocale(LC_ALL, "es_ES.UTF-8");
     Menu();
     return 0;
 }
