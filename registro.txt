@@ -1,5 +1,5 @@
 --BOLETA--Planta 1
 Nombre: flor	Cantidad: 2	Precios: 	5
 El pago total es : 10
------------------------------
+----------------------------
 
