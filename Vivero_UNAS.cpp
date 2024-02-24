@@ -1,14 +1,35 @@
 #include <iostream>
 #include <vector>
-#include <conio.h>
-#include <stdlib.h>
 #include <string>
-#include <ctime>
 #include <fstream>
+#include <iomanip>
+#include <ctime>
+#include <cstdlib>
+#include <conio.h>
 #define BLUE "\033[34m"
 #define CYAN "\033[36m"
 using namespace std;
-const string CONTRASENA_CORRECTA = "vivero_unas2024"; // para poder accerder
+
+const string CONTRASENA_CORRECTA = "vivero_unas2024"; // para poder acceder
+
+struct Plantas
+{
+    string nombre_plantas;
+    int cantidad_plantas;
+    vector<float> precios;
+};
+
+struct Abono
+{
+    string nombre_abono;
+    float precio_adono;
+    char fecha_registro;
+};
+struct Cliente
+{
+    string nombre;
+    string DNI;
+};
 bool verificarContrasena()
 {
     string contrasenaIngresada;
@@ -22,19 +43,7 @@ bool verificarContrasena()
     return contrasenaIngresada == CONTRASENA_CORRECTA;
 }
 
-struct Plantas //  estructura de plantas para el vivero
-{
-    string nombre_plantas;
-    int cantidad_plantas;
-    vector<float> precios;
-};
-struct Abono // estructura para ver el abono  realizado por un cliente a una planta
-{
-    string nombre_abono;
-    float precio_adono;
-    char fecha_registro;
-};
-void Registro(vector<Plantas> &registro) // registro de las plantas de vivero
+void Registro(vector<Plantas> &registro)
 {
     cout << " ______________________" << endl;
     cout << "|                      |" << endl;
@@ -46,7 +55,7 @@ void Registro(vector<Plantas> &registro) // registro de las plantas de vivero
     cin >> tamanio;
     cin.ignore();
 
-    registro.resize(tamanio); // llamas de nuevo al registro y te dice el tamaño edl vector struct
+    registro.resize(tamanio);
 
     for (int i = 0; i < tamanio; i++)
     {
@@ -68,7 +77,7 @@ void Registro(vector<Plantas> &registro) // registro de las plantas de vivero
     system("cls");
 }
 
-void mostrarRegistro(const vector<Plantas> &registro) // muestra los datos a ingresar al usuario
+void mostrarRegistro(const vector<Plantas> &registro)
 {
     cout << " ___________________" << endl;
     cout << "|                   |" << endl;
@@ -89,7 +98,26 @@ void mostrarRegistro(const vector<Plantas> &registro) // muestra los datos a ing
     getch();
     system("cls");
 }
-void RegistroAbonoUnas(vector<Abono> &abonos) // para registrar la cantidad de abonos que quieres sacar
+void CargarRegistro(vector<Plantas> &registro)
+{
+    ifstream archivo("registro.txt");
+    if (archivo.is_open())
+    {
+        string linea;
+        while (getline(archivo, linea))
+        {
+            cout << linea << endl;
+        }
+        archivo.close();
+    }
+    else
+    {
+        cout << "No se pudo abrir el archivo de registro.\n";
+    }
+    getch();
+    system("cls");
+}
+void RegistroAbonoUnas(vector<Abono> &abonos)
 {
     cout << " ____________________" << endl;
     cout << "|                    |" << endl;
@@ -113,21 +141,19 @@ void RegistroAbonoUnas(vector<Abono> &abonos) // para registrar la cantidad de a
     }
     system("cls");
 }
-void GuardarAbono(const vector<Abono> &abonos) // guardar el abono que ya has registrado
+void GuardarAbono(vector<Abono> &abonos)
 {
-    ofstream archivo("abono.txt"); //
-
+    ofstream archivo("abono.txt");
     if (archivo.is_open())
     {
         for (size_t i = 0; i < abonos.size(); i++)
         {
             archivo << "----BOLETA----";
             archivo << "Planta " << i + 1 << ":\n";
-            archivo << "Nombre: " << abonos[i].nombre_abono << endl;
-            archivo << "Fecha: " << abonos[i].fecha_registro << endl;
-            archivo << "Precios: " << abonos[i].precio_adono << endl;
+            archivo << "Nombre: " << abonos[i].nombre_abono << '\t';
+            archivo << "Fecha: " << abonos[i].fecha_registro << '\t';
+            archivo << "Precios: " << abonos[i].precio_adono << '\t';
         }
-
         archivo.close();
     }
     else
@@ -138,7 +164,41 @@ void GuardarAbono(const vector<Abono> &abonos) // guardar el abono que ya has re
     cout << "Se ha guardado correctamente.\n";
     system("cls");
 }
-void salirdelSistema(const vector<Plantas> &registro) // salir de sistema y a la vez guardar los datos de la plantas
+
+void CargarAbono(vector<Abono> &abonos)
+{
+    ifstream archivo("abono.txt");
+    if (archivo.is_open())
+    {
+        string linea;
+        while (getline(archivo, linea))
+        {
+            cout << linea << endl;
+        }
+        archivo.close();
+    }
+    else
+    {
+        cout << "No se pudo abrir el archivo de abonos.\n";
+    }
+    getch();
+    system("cls");
+}
+void RegistrarCliente(vector<Cliente> &clientes)
+{
+    int cantidad;
+    cout << "Ingrese la cantidad de clientes : ";
+    cin >> cantidad;
+    clientes.resize(cantidad);
+    for (int i = 0; i < cantidad; i++)
+    {
+        cout << "Ingrese el nombre del cliente: ";
+        getline(cin, clientes[i].nombre);
+        cout << "Ingrese el DNI del cliente: ";
+        getline(cin, clientes[i].DNI);
+    }
+}
+void salirdelSistema(vector<Plantas> &registro)
 {
     ofstream archivo("registro.txt");
 
@@ -147,10 +207,10 @@ void salirdelSistema(const vector<Plantas> &registro) // salir de sistema y a la
         for (size_t i = 0; i < registro.size(); i++)
         {
             archivo << "--BOLETA--";
-            archivo << "Planta " << i + 1 << ":\n";
-            archivo << "Nombre: " << registro[i].nombre_plantas << endl;
-            archivo << "Cantidad: " << registro[i].cantidad_plantas << endl;
-            archivo << "Precios: " << endl;
+            archivo << "Planta " << i + 1 << '\n';
+            archivo << "Nombre: " << registro[i].nombre_plantas << '\t';
+            archivo << "Cantidad: " << registro[i].cantidad_plantas << '\t';
+            archivo << "Precios: " << '\t';
             for (float dato : registro[i].precios)
             {
                 archivo << dato << endl;
@@ -161,7 +221,6 @@ void salirdelSistema(const vector<Plantas> &registro) // salir de sistema y a la
             archivo << "\n-----------------------------\n";
             archivo << "\n";
         }
-
         archivo.close();
     }
     else
@@ -170,8 +229,6 @@ void salirdelSistema(const vector<Plantas> &registro) // salir de sistema y a la
     }
 
     cout << "Has salido del sistema.\n";
-    exit(0);
-    system("cls");
 }
 
 void Menu()
@@ -202,7 +259,9 @@ void Menu()
         cout << "[1] REGISTRAR PLANTAS: \n";
         cout << "[2] MOSTRAR EL REGISTRO: \n";
         cout << "[3] REGISTRAR ABONOS:\n";
-        cout << "[4] SALIR DEL SISTEMA: \n\n";
+        cout << "[4] CARGAR ABONOS: \n";
+        cout << "[5] CARGAR REGISTRO: \n";
+        cout << "[6] SALIR DEL SISTEMA: \n\n";
 
         cout << "Ingrese su opcion: ";
         cin >> opc;
@@ -223,17 +282,23 @@ void Menu()
             break;
         case 4:
             system("cls");
-            GuardarAbono(abonos);
+            CargarAbono(abonos);
             break;
         case 5:
             system("cls");
+            CargarRegistro(registro);
+            break;
+        case 6:
+            system("cls");
             salirdelSistema(registro);
+            GuardarAbono(abonos);
+            break;
         default:
             system("cls");
             cout << "Opcion no valida.\n";
             break;
         }
-    } while (opc != 5);
+    } while (opc != 6);
 }
 
 int main()
