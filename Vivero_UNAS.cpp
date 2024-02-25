@@ -77,7 +77,7 @@ void Registro(vector<Plantas> &registro)
     system("cls");
 }
 
-void mostrarRegistro(const vector<Plantas> &registro)
+void mostrarRegistro(vector<Plantas> &registro)
 {
     cout << " ___________________" << endl;
     cout << "|                   |" << endl;
@@ -198,6 +198,46 @@ void RegistrarCliente(vector<Cliente> &clientes)
         getline(cin, clientes[i].DNI);
     }
 }
+void GuadarCliente(vector<Cliente> &clientes)
+{
+    ofstream file("cliente.txt");
+
+    if (file.is_open())
+    {
+        for (size_t i = 0; i < clientes.size(); i++)
+        {
+            file << clientes[i].nombre << "\n"
+                 << clientes[i].DNI << "\n\n";
+        }
+
+        file.close();
+    }
+
+    else
+    {
+        cout << "Error al abrir el archivo para almacenar los datos. ";
+    }
+    cout << "Has salido del sistema. ";
+}
+void cargarCliente(vector<Cliente> &clientes)
+{
+    ifstream file("cliente.txt");
+    if (file.is_open())
+    {
+        string linea;
+        while (getline(file, linea))
+        {
+            cout << linea << endl;
+        }
+        file.close();
+    }
+    else
+    {
+        cout << "No se pudo abrir el archivo de cliente.\n";
+    }
+    getch();
+    system("cls");
+}
 void salirdelSistema(vector<Plantas> &registro)
 {
     ofstream archivo("registro.txt");
@@ -241,6 +281,7 @@ void Menu()
     cout << CYAN;
     vector<Plantas> registro;
     vector<Abono> abonos;
+    vector<Cliente> clientes;
 
     if (!verificarContrasena())
     {
