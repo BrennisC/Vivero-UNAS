@@ -10,65 +10,67 @@
 #define CYAN "\033[36m"
 using namespace std;
 
-const string CONTRASENA_CORRECTA = "vivero_unas2024"; // para poder acceder
+const string CORRECT_PASSWORD = "vivero_unas2024"; // para poder acceder
 
-struct Plantas
+struct Plants
 {
-    string nombre_plantas;
-    int cantidad_plantas;
-    vector<float> precios;
+    string plant_name;
+    int plant_quantity;
+    vector<float> prices;
 };
 
-struct Abono
+struct Fertilizer
 {
-    string nombre_abono;
-    float precio_adono;
-    char fecha_registro;
+    string fertilizer_name;
+    float fertilizer_price;
+    char registration_date;
 };
-struct Cliente
+
+struct Client
 {
-    string nombre;
-    string DNI;
+    string name;
+    string ID;
 };
-bool verificarContrasena()
+
+bool verifyPassword()
 {
-    string contrasenaIngresada;
-    while (CONTRASENA_CORRECTA != contrasenaIngresada)
+    string enteredPassword;
+    while (CORRECT_PASSWORD != enteredPassword)
     {
-        cout << "Ingrese su contraseña: ";
-        getline(cin, contrasenaIngresada);
+        cout << "Ingrese tu contraseña ";
+        getline(cin, enteredPassword);
         system("cls");
     }
-    system("cls"); // para limpiar el buffer
-    return contrasenaIngresada == CONTRASENA_CORRECTA;
+    system("cls"); // to clear the buffer
+    return enteredPassword == CORRECT_PASSWORD;
 }
 
-void Registro(vector<Plantas> &registro)
+void RegisterPlants(vector<Plants> &registry)
 {
     cout << " ______________________" << endl;
     cout << "|                      |" << endl;
     cout << "|  REGISTRO DE PLANTAS |" << endl;
     cout << "|______________________|\n\n";
 
-    int tamanio;
+    int size;
     cout << "Ingrese la cantidad de tipos de plantas del vivero: ";
-    cin >> tamanio;
+    cin >> size;
     cin.ignore();
 
-    registro.resize(tamanio);
+    registry.resize(size);
 
-    for (int i = 0; i < tamanio; i++)
+    for (int i = 0; i < size; i++)
     {
-        float pago;
-        cout << "Ingrese el nombre de la planta " << i + 1 << ": " << endl;
-        getline(cin, registro[i].nombre_plantas);
+        float payment;
+        cout << "Ingrese el nombre de la planta" << i + 1 << ": " << endl;
+        getline(cin, registry[i].plant_name);
 
-        cout << "Ingrese la cantidad de " << registro[i].nombre_plantas << " : " << endl;
-        cin >> registro[i].cantidad_plantas;
+        cout << "Ingrese la cantidad de plantas " << registry[i].plant_name << " : " << endl;
+        cin >> registry[i].plant_quantity;
 
-        cout << "Ingrese el precio por unidad de las " << registro[i].nombre_plantas << " : " << endl;
-        cin >> pago;
-        registro[i].precios.push_back(pago);
+        cout << "Ingrese el precio por unidad de las " << registry[i].plant_name << " : " << endl;
+        cin >> payment;
+        registry[i].prices.push_back(payment);
 
         cin.ignore();
 
@@ -77,38 +79,39 @@ void Registro(vector<Plantas> &registro)
     system("cls");
 }
 
-void mostrarRegistro(vector<Plantas> &registro)
+void ShowRegistry(vector<Plants> &registry)
 {
     cout << " ___________________" << endl;
     cout << "|                   |" << endl;
     cout << "|  MOSTRAR REGISTRO |" << endl;
     cout << "|___________________|\n\n";
 
-    for (size_t i = 0; i < registro.size(); i++)
+    for (size_t i = 0; i < registry.size(); i++)
     {
-        cout << "Planta " << i + 1 << ":\n";
-        cout << "Nombre: " << registro[i].nombre_plantas << endl;
-        cout << "Cantidad: " << registro[i].cantidad_plantas << endl;
-        for (float precio : registro[i].precios)
+        cout << "Planta" << i + 1 << ":\n";
+        cout << "Nombre: " << registry[i].plant_name << endl;
+        cout << "Cantidad: " << registry[i].plant_quantity << endl;
+        for (float price : registry[i].prices)
         {
-            cout << "Precio: S/. " << precio << endl;
+            cout << "Precio: " << price << endl;
         }
         cout << "\n";
     }
     getch();
     system("cls");
 }
-void CargarRegistro(vector<Plantas> &registro)
+
+void LoadRegistry(vector<Plants> &registry)
 {
-    ifstream archivo("registro.txt");
-    if (archivo.is_open())
+    ifstream file("registry.txt");
+    if (file.is_open())
     {
-        string linea;
-        while (getline(archivo, linea))
+        string line;
+        while (getline(file, line))
         {
-            cout << linea << endl;
+            cout << line << endl;
         }
-        archivo.close();
+        file.close();
     }
     else
     {
@@ -117,44 +120,46 @@ void CargarRegistro(vector<Plantas> &registro)
     getch();
     system("cls");
 }
-void RegistroAbonoUnas(vector<Abono> &abonos)
+
+void RegisterFertilizer(vector<Fertilizer> &fertilizers)
 {
     cout << " ____________________" << endl;
     cout << "|                    |" << endl;
     cout << "|  REGISTRO DE ABONO |" << endl;
     cout << "|____________________|\n\n";
-    int cantidad;
+    int quantity;
     cout << "Ingrese los abonos comprados: ";
-    cin >> cantidad;
+    cin >> quantity;
 
-    abonos.resize(cantidad);
+    fertilizers.resize(quantity);
     cin.ignore();
-    for (int i = 0; i < cantidad; i++)
+    for (int i = 0; i < quantity; i++)
     {
         cout << "Ingrese el nombre del abono " << i + 1 << " : ";
-        getline(cin, abonos[i].nombre_abono);
+        getline(cin, fertilizers[i].fertilizer_name);
         cout << "Ingrese la fecha del registro " << i + 1 << " : ";
-        cin.get(abonos[i].fecha_registro);
+        cin.get(fertilizers[i].registration_date);
         cout << "Ingrese el monto del abono " << i + 1 << " : ";
-        cin >> abonos[i].precio_adono;
+        cin >> fertilizers[i].fertilizer_price;
         cout << "\n\nIngrese del abono " << i + 1 << "completado \n\n";
     }
     system("cls");
 }
-void GuardarAbono(vector<Abono> &abonos)
+
+void SaveFertilizer(vector<Fertilizer> &fertilizers)
 {
-    ofstream archivo("abono.txt");
-    if (archivo.is_open())
+    ofstream file("fertilizer.txt");
+    if (file.is_open())
     {
-        for (size_t i = 0; i < abonos.size(); i++)
+        for (size_t i = 0; i < fertilizers.size(); i++)
         {
-            archivo << "----BOLETA----";
-            archivo << "Planta " << i + 1 << ":\n";
-            archivo << "Nombre: " << abonos[i].nombre_abono << '\t';
-            archivo << "Fecha: " << abonos[i].fecha_registro << '\t';
-            archivo << "Precios: " << abonos[i].precio_adono << '\t';
+            file << "----BOLETA----";
+            file << "Abono" << i + 1 << ":\n";
+            file << "Nombre: " << fertilizers[i].fertilizer_name << '\t';
+            file << "Fecha: " << fertilizers[i].registration_date << '\t';
+            file << "Precio: " << fertilizers[i].fertilizer_price << '\t';
         }
-        archivo.close();
+        file.close();
     }
     else
     {
@@ -165,17 +170,17 @@ void GuardarAbono(vector<Abono> &abonos)
     system("cls");
 }
 
-void CargarAbono(vector<Abono> &abonos)
+void LoadFertilizer(vector<Fertilizer> &fertilizers)
 {
-    ifstream archivo("abono.txt");
-    if (archivo.is_open())
+    ifstream file("fertilizer.txt");
+    if (file.is_open())
     {
-        string linea;
-        while (getline(archivo, linea))
+        string line;
+        while (getline(file, line))
         {
-            cout << linea << endl;
+            cout << line << endl;
         }
-        archivo.close();
+        file.close();
     }
     else
     {
@@ -184,30 +189,36 @@ void CargarAbono(vector<Abono> &abonos)
     getch();
     system("cls");
 }
-void RegistrarCliente(vector<Cliente> &clientes)
+
+void RegisterClient(vector<Client> &clients)
 {
-    int cantidad;
+    cout << " ______________________" << endl;
+    cout << "|                      |" << endl;
+    cout << "|  REGISTRO DE CLIENTE |" << endl;
+    cout << "|______________________|\n\n";
+    int quantity;
     cout << "Ingrese la cantidad de clientes : ";
-    cin >> cantidad;
-    clientes.resize(cantidad);
-    for (int i = 0; i < cantidad; i++)
+    cin >> quantity;
+    clients.resize(quantity);
+    for (int i = 0; i < quantity; i++)
     {
         cout << "Ingrese el nombre del cliente: ";
-        getline(cin, clientes[i].nombre);
+        getline(cin, clients[i].name);
         cout << "Ingrese el DNI del cliente: ";
-        getline(cin, clientes[i].DNI);
+        getline(cin, clients[i].ID);
     }
 }
-void GuadarCliente(vector<Cliente> &clientes)
+
+void SaveClient(vector<Client> &clients)
 {
-    ofstream file("cliente.txt");
+    ofstream file("client.txt");
 
     if (file.is_open())
     {
-        for (size_t i = 0; i < clientes.size(); i++)
+        for (size_t i = 0; i < clients.size(); i++)
         {
-            file << clientes[i].nombre << "\n"
-                 << clientes[i].DNI << "\n\n";
+            file << clients[i].name << "\n"
+                 << clients[i].ID << "\n\n";
         }
 
         file.close();
@@ -219,15 +230,16 @@ void GuadarCliente(vector<Cliente> &clientes)
     }
     cout << "Has salido del sistema. ";
 }
-void cargarCliente(vector<Cliente> &clientes)
+
+void LoadClient(vector<Client> &clients)
 {
-    ifstream file("cliente.txt");
+    ifstream file("client.txt");
     if (file.is_open())
     {
-        string linea;
-        while (getline(file, linea))
+        string line;
+        while (getline(file, line))
         {
-            cout << linea << endl;
+            cout << line << endl;
         }
         file.close();
     }
@@ -238,30 +250,32 @@ void cargarCliente(vector<Cliente> &clientes)
     getch();
     system("cls");
 }
-void salirdelSistema(vector<Plantas> &registro)
-{
-    ofstream archivo("registro.txt");
 
-    if (archivo.is_open())
+void ExitSystem(vector<Plants> &registry)
+{
+    ofstream file("registry.txt");
+
+    if (file.is_open())
     {
-        for (size_t i = 0; i < registro.size(); i++)
+
+        for (size_t i = 0; i < registry.size(); i++)
         {
-            archivo << "--BOLETA--";
-            archivo << "Planta " << i + 1 << '\n';
-            archivo << "Nombre: " << registro[i].nombre_plantas << '\t';
-            archivo << "Cantidad: " << registro[i].cantidad_plantas << '\t';
-            archivo << "Precios: " << '\t';
-            for (float dato : registro[i].precios)
+            file << "--BOLETA--";
+            file << "Planta " << i + 1 << '\n';
+            file << "Nombre: " << registry[i].plant_name << '\t';
+            file << "Cantidad: " << registry[i].plant_quantity << '\t';
+            file << "Precio: " << '\t';
+            for (float data : registry[i].prices)
             {
-                archivo << dato << endl;
-                float pago;
-                float total = static_cast<float>(dato) * registro[i].cantidad_plantas;
-                archivo << "El pago total es : " << total;
+                file << data << endl;
+                float payment;
+                float total = static_cast<float>(data) * registry[i].plant_quantity;
+                file << "El pago total es : " << total;
             }
-            archivo << "\n-----------------------------\n";
-            archivo << "\n";
+            file << "\n-----------------------------\n";
+            file << "\n";
         }
-        archivo.close();
+        file.close();
     }
     else
     {
@@ -279,17 +293,17 @@ void Menu()
     cout << "|  VIVERO UNAS  |" << endl;
     cout << "|_______________|\n\n";
     cout << CYAN;
-    vector<Plantas> registro;
-    vector<Abono> abonos;
-    vector<Cliente> clientes;
+    vector<Plants> registry;
+    vector<Fertilizer> fertilizers;
+    vector<Client> clients;
 
-    if (!verificarContrasena())
+    if (!verifyPassword())
     {
         cout << "Contraseña incorrecta vuelve intentar.";
         return;
     }
 
-    int opc;
+    int choice;
     cout << " _____________________" << endl;
     cout << "|                     |" << endl;
     cout << "|   MENU DE OPCIONES  |" << endl;
@@ -305,46 +319,46 @@ void Menu()
         cout << "[6] SALIR DEL SISTEMA: \n\n";
 
         cout << "Ingrese su opcion: ";
-        cin >> opc;
+        cin >> choice;
 
-        switch (opc)
+        switch (choice)
         {
         case 1:
             system("cls");
-            Registro(registro);
+            RegisterPlants(registry);
             break;
         case 2:
             system("cls");
-            mostrarRegistro(registro);
+            ShowRegistry(registry);
             break;
         case 3:
             system("cls");
-            RegistroAbonoUnas(abonos);
+            RegisterFertilizer(fertilizers);
             break;
         case 4:
             system("cls");
-            CargarAbono(abonos);
+            LoadFertilizer(fertilizers);
             break;
         case 5:
             system("cls");
-            CargarRegistro(registro);
+            LoadRegistry(registry);
             break;
         case 6:
             system("cls");
-            salirdelSistema(registro);
-            GuardarAbono(abonos);
+            ExitSystem(registry);
+            SaveFertilizer(fertilizers);
             break;
         default:
             system("cls");
-            cout << "Opcion no valida.\n";
+            cout << "Invalid option.\n";
             break;
         }
-    } while (opc != 6);
+    } while (choice != 6);
 }
 
 int main()
 {
-    setlocale(LC_ALL, "es_ES.UTF-8");
+    setlocale(LC_ALL, "en_US.UTF-8");
     Menu();
     return 0;
 }
