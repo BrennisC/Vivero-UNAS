@@ -1,5 +1,10 @@
 --REGISTRO--Planta 1
-Nombre: flor	Cantidad: 2	Precio: 	4
-El pago total es : 8
+Nombre: Flor	Cantidad: 4	Precio: 	16
+El pago total es : 64
+-----------------------------
+
+--REGISTRO--Planta 2
+Nombre: Orquideas	Cantidad: 2	Precio: 	15
+El pago total es : 30
 -----------------------------
 

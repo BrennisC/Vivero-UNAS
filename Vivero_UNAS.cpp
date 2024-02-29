@@ -217,25 +217,15 @@ void RegisterFertilizer(vector<Fertilizer> &fertilizers)
 
     for (int i = 0; i < quantity; i++)
     {
+        int numPrices;
         cout << "Ingrese el nombre del abono " << i + 1 << " : ";
         getline(cin, fertilizers[i].fertilizer_name);
 
         cout << "Ingrese la fecha del registro " << i + 1 << " : ";
-        /*         getline(cin, fertilizers[i].registration_date);
-         */
-        cin >> fertilizers[i].registration_date;
-        int numPrices;
-        cout << "Ingrese la cantidad para el abono " << fertilizers[i].fertilizer_name << " : ";
+        getline(cin, fertilizers[i].registration_date);
+        cout << "Ingrese el precio del abono " << fertilizers[i].fertilizer_name << " : ";
         cin >> numPrices;
-
-        cout << "Ingrese los precios para el abono " << fertilizers[i].fertilizer_name << ":\n";
-        for (int j = 0; j < numPrices; j++)
-        {
-            float price;
-            cout << "Precio " << j + 1 << ": ";
-            cin >> price;
-            fertilizers[i].fertilizer_price.push_back(price);
-        }
+        fertilizers[i].fertilizer_price.push_back(numPrices);
 
         cout << "\nRegistro del abono " << i + 1 << " completado.\n\n";
     }
@@ -444,7 +434,7 @@ void Menu()
             cout << "Opcion no valida\n";
             break;
         }
-    } while (choice != 6);
+    } while (choice != 7);
 }
 
 int main()
@@ -474,16 +464,15 @@ void ShowTxt()
         case 1:
             system("cls");
             LoadRegistry(registry);
-            getch();
             break;
         case 2:
             system("cls");
             LoadFertilizer(fertilizers);
-            getch();
+            break;
         case 3:
             system("cls");
             LoadClient(clients);
-            getch();
+            break;
         case 4:
             Menu();
             cout << "Volviendo al menu de opciones ";

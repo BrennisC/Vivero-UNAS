@@ -1,0 +1,6 @@
+------BOLETA------
+Cliente 1:
+Nombre: Brennis
+ID: 72263878
+-------------------
+
