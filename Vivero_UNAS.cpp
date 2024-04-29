@@ -148,7 +148,7 @@ void UpdatePlantQuantity(vector<Plants> &registry)
 // Función para guardar el registro de plantas en un archivo de texto
 void SavePlants(vector<Plants> &registry)
 {
-    ofstream file("registry.txt");
+    ofstream file("registry.txt", ios::out | ios ::app);
 
     if (file.is_open())
     {
@@ -237,7 +237,7 @@ void RegisterFertilizer(vector<Fertilizer> &fertilizers)
 // Función para guardar el registro de abonos en un archivo de texto
 void SaveFertilizer(vector<Fertilizer> &fertilizers)
 {
-    ofstream file("fertilizer.txt");
+    ofstream file("fertilizer.txt", ios::out | ios ::app);
     if (file.is_open())
     {
         for (size_t i = 0; i < fertilizers.size(); i++)
@@ -308,7 +308,7 @@ void RegisterClient(vector<Client> &clients)
 // Función para guardar el registro de clientes en un archivo de texto
 void SaveClient(vector<Client> &clients)
 {
-    ofstream file("client.txt");
+    ofstream file("client.txt", ios::out | ios ::app);
     if (file.is_open())
     {
         for (size_t i = 0; i < clients.size(); i++)
@@ -474,12 +474,11 @@ void ShowTxt()
             LoadClient(clients);
             break;
         case 4:
-            Menu();
             cout << "Volviendo al menu de opciones ";
             break;
         default:
             cout << "Opcion no valida ";
             break;
         }
-    } while (choice != 5);
+    } while (choice != 4);
 }
